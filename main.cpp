@@ -5,6 +5,16 @@
  * Author : ifkno
  */ 
 
+/**
+ * If using pure virtual member functions and a toolchain that does not compile with libstdc++, 
+ * such as avr-gcc, then __cxa_pure_virtual() must be defined.
+ * Undefined pure virtual functions can get called during object construction/destruction. 
+ * If that happens, __cxa_pure_virtual() gets called to report the error.
+ */
+extern "C" void __cxa_pure_virtual() { 
+	while (true); // safe predictable loud error
+}
+
 #include "uart_device.h"
 #include "tiny_catch.h"
 
